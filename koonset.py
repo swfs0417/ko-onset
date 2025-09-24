@@ -83,6 +83,7 @@ id_to_particle = {
 }
 
 def split_particle(text: str) -> list[tuple[str]]:
+  '''문자열을 음절 단위로 분리하여 초성, 중성, 종성(또는 원래 문자) 튜플의 리스트로 반환합니다.'''
   result = []
   for syllable in text:
     ucode = ord(syllable)
@@ -97,6 +98,7 @@ def split_particle(text: str) -> list[tuple[str]]:
   return result
 
 def combine(splitted_text: list[tuple[str]]) -> str:
+  '''분리된 음절(들)을 합쳐서 문자열로 반환합니다.'''
   result = ''
   for syllable in splitted_text:
     if isinstance(syllable, tuple):
@@ -115,6 +117,7 @@ def combine(splitted_text: list[tuple[str]]) -> str:
   return result
 
 def find_onset(onsets: str, target_text: str) -> int:
+  '''해당하는 초성 문자(열)이 대상 문자(열)의 어디에 위치하는지 인덱스를 반환합니다. 존재하지 않으면 -1을 반환합니다.'''
   onset_of_target_text = ''.join([x[0] for x in split_particle(target_text)])
   print(onset_of_target_text)
   return onset_of_target_text.find(onsets)
