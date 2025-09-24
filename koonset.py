@@ -97,7 +97,7 @@ def split_particle(text: str) -> list[tuple[str]]:
       result.append((syllable,))
   return result
 
-def combine(splitted_text: list[tuple[str]]) -> str:
+def combine_particles(splitted_text: list[tuple[str]]) -> str:
   '''분리된 음절(들)을 합쳐서 문자열로 반환합니다.'''
   result = ''
   for syllable in splitted_text:
@@ -116,8 +116,10 @@ def combine(splitted_text: list[tuple[str]]) -> str:
       raise ValueError("Invalid syllable format")
   return result
 
+def to_onset(text: str) -> str:
+  '''문자(열)을 초성 문자(열)로 변환하여 반환합니다.'''
+  return ''.join([x[0] for x in split_particle(text)])
+
 def find_onset(onsets: str, target_text: str) -> int:
   '''해당하는 초성 문자(열)이 대상 문자(열)의 어디에 위치하는지 인덱스를 반환합니다. 존재하지 않으면 -1을 반환합니다.'''
-  onset_of_target_text = ''.join([x[0] for x in split_particle(target_text)])
-  print(onset_of_target_text)
-  return onset_of_target_text.find(onsets)
+  return to_onset(target_text).find(onsets)
